@@ -7,12 +7,12 @@
 
 # Content
 - [Overview](#overview)
-  * [(1) Overall Framework](#-1--overall-framework)
-  * [(2) Data Flow in Networks](#-2--data-flow-in-networks)
+  * [(1) Overall Framework](#(1)-overall-framework)
+  * [(2) Data Flow in Networks](#(2)-data-flow-in-networks)
 - [Manual](#manual)
   * [Requirements](#requirements)
-  * [Quick Test (inference on Set 5)](#quick-test--inference-on-set-5-)
-  * [The whole test pipeline (on your own data)](#the-whole-test-pipeline--on-your-own-data-)
+  * [Quick Test (inference on Set 5)](#quick-test-(inference-on-set-5))
+  * [The whole test pipeline (on your own data)](#the-whole-test-pipeline-(on-your-own-data))
   * [Train new AutoBCS Net](#train-new-autobcs-net)
 
 
