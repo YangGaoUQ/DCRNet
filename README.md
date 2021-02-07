@@ -9,12 +9,12 @@ This code was built and tested on Centos 7.8 with Nvdia Tesla V100 and Windows 1
 
 ### (1) Overall Framework
 
-![Whole Framework](https://github.com/YangGaoUQ/DCRNet/tree/main/img/Figs_1.png)
+![Whole Framework](https://github.com/YangGaoUQ/DCRNet/blob/main/img/Figs_1.png)
 Fig. 1: Overview of the proposed QSM accelerating scheme.  
 
 ### (2) Data Flow in Networks
 
-![Data Flow](https://github.com/YangGaoUQ/DCRNet/tree/main/img/Figs_2.png)
+![Data Flow](https://github.com/YangGaoUQ/DCRNet/blob/main/img/Figs_2.png)
 Fig. 2: The architecture of the proposed DCRNet, which is developed from a deep residual network backbone using complex convolutional operations.
 
 ## Requirements
