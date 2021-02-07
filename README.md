@@ -5,30 +5,29 @@
 - This code was built and tested on Centos 7.8 with Nvdia Tesla V100 and Windows 10 environment with GTX 1060. 
 
 
-- [DCRNet: Accelerating Quantitative Susceptibility Mapping using Compressed Sensing and Deep Neural Network](#dcrnet--accelerating-quantitative-susceptibility-mapping-using-compressed-sensing-and-deep-neural-network)
+# content
 - [Overview](#overview)
-    + [(1) Overall Framework](#-1--overall-framework)
-    + [(2) Data Flow in Networks](#-2--data-flow-in-networks)
-  * [Requirements](#requirements)
-- [Manual](#manual)
-  * [Quick Test (inference on Set 5)](#quick-test--inference-on-set-5-)
-  * [The whole test pipeline (on your own data)](#the-whole-test-pipeline--on-your-own-data-)
+  + [(1) Overall Framework](##overall-framework)
+  + [(2) Data Flow in Networks](##data-flow-in-networks)
+[Manual](#manual)
+  * [Requirements](##requirements)
+  * [Quick Test (inference on Set 5)](#quick-test)
+  * [The whole test pipeline (on your own data)](#the-whole-test-pipeline)
   * [Train new AutoBCS Net](#train-new-autobcs-net)
-
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
 
 # Overview
 
-### (1) Overall Framework
+## (1) Overall Framework
 
 ![Whole Framework](https://github.com/YangGaoUQ/DCRNet/blob/main/img/Figs_1.png)
 Fig. 1: Overview of the proposed QSM accelerating scheme.  
 
-### (2) Data Flow in Networks
+## (2) Data Flow in Networks
 
 ![Data Flow](https://github.com/YangGaoUQ/DCRNet/blob/main/img/Figs_2.png)
 Fig. 2: The architecture of the proposed DCRNet, which is developed from a deep residual network backbone using complex convolutional operations.
+
+# Manual
 
 ## Requirements
 Python 3.7 or later  
@@ -37,7 +36,6 @@ Pytorch 1.8
 MATLAB 2017b or later  
 Hongfu Sun's QSM toolbox (https://github.com/sunhongfu/QSM)
 
-# Manual
 
 ## Quick Test (inference on Set 5)
 1. Clone this repository
