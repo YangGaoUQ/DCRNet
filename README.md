@@ -11,7 +11,7 @@
   * [(2) Data Flow in Networks](#(2)-data-flow-in-networks)
 - [Manual](#manual)
   * [Requirements](#requirements)
-  * [Quick Test (inference on Set 5)](#quick-test-(inference-on-set-5))
+  * [Quick Test (inference on Set 5)](#jump)
   * [The whole test pipeline (on your own data)](#the-whole-test-pipeline-(on-your-own-data))
   * [Train new AutoBCS Net](#train-new-autobcs-net)
 
