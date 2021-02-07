@@ -4,6 +4,20 @@
 
 - This code was built and tested on Centos 7.8 with Nvdia Tesla V100 and Windows 10 environment with GTX 1060. 
 
+
+- [DCRNet: Accelerating Quantitative Susceptibility Mapping using Compressed Sensing and Deep Neural Network](#dcrnet--accelerating-quantitative-susceptibility-mapping-using-compressed-sensing-and-deep-neural-network)
+- [Overview](#overview)
+    + [(1) Overall Framework](#-1--overall-framework)
+    + [(2) Data Flow in Networks](#-2--data-flow-in-networks)
+  * [Requirements](#requirements)
+- [Manual](#manual)
+  * [Quick Test (inference on Set 5)](#quick-test--inference-on-set-5-)
+  * [The whole test pipeline (on your own data)](#the-whole-test-pipeline--on-your-own-data-)
+  * [Train new AutoBCS Net](#train-new-autobcs-net)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
+
 # Overview
 
 ### (1) Overall Framework
@@ -19,8 +33,9 @@ Fig. 2: The architecture of the proposed DCRNet, which is developed from a deep 
 ## Requirements
 Python 3.7 or later  
 NVDIA GPU (CUDA 10.0)  
-Pytorch 1.8
+Pytorch 1.8  
 MATLAB 2017b or later  
+Hongfu Sun's QSM toolbox (https://github.com/sunhongfu/QSM)
 
 # Manual
 
@@ -67,7 +82,7 @@ MATLAB 2017b or later
     python TrainAutoBCS.py 
 ```
 
-[Back to Top](#readme)
+[⬆ top](#readme)
 
 
 
