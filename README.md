@@ -2,7 +2,7 @@
 
 * This reposiotry is for a deep complex residual network (DCRNet) to recover both MR magnitude and quantitative phase images from the CS undersample k-space data, enabling the acceleration of QSM acquisitions, which is introduced in the following paper: xxxx.  
 
-- This code was built and tested on Centos 7.8 with Nvdia Tesla V100 and Windows 10 environment with GTX 1060. 
+- This code was built and tested on Centos 7.8 with Nvdia Tesla V100 and windows 10/ubuntu 19.10 with GTX 1060. 
 
 # Content
 - [ Overview](#head1)

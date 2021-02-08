@@ -509,10 +509,10 @@ end
 
 
 [~,~] = unix('rm *.dat ');
-save('params.mat','-v7.3');
+save('all.mat','-v7.3');
 
 cd ..
-cd(curDir); % my code
+cd(curDir); % back to the original folder
 end
 rmpath(genpath('~/QSM'))
 
