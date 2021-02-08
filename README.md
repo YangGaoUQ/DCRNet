@@ -13,6 +13,7 @@
 	- [Quick Test (inference on Set 5)](#head6)
 	- [The whole test pipeline (on your own data)](#head7)
 	- [Train new AutoBCS Net](#head8)
+
 # <span id="head1"> Overview</span>
 
 ## <span id="head2">(1) Overall Framework</span>
@@ -25,9 +26,9 @@ Fig. 1: Overview of the proposed QSM accelerating scheme.
 ![Data Flow](https://github.com/YangGaoUQ/DCRNet/blob/main/img/Figs_2.png)
 Fig. 2: The architecture of the proposed DCRNet, which is developed from a deep residual network backbone using complex convolutional operations.
 
-# <span id="head4"> Manual</span>
+# <span id="head4"> Manual </span>
 
-## <span id="head5"> Requirements</span>
+## <span id="head5"> Requirements </span>
 
 * For DL-based Magnitude and Phase Reconstruction  
     - Python 3.7 or later  
@@ -47,7 +48,7 @@ Fig. 2: The architecture of the proposed DCRNet, which is developed from a deep 
 ```
 2. Download Testdata provided by the authors from google drive, then unzip to get the files.  
 
-2. Run the following scripts (in Folder './Inference/') to test the pre-trained models.
+3. Run the following scripts (in Folder './Inference/') to test the pre-trained models.
 
 ```python
     python Evaluate_set5.py

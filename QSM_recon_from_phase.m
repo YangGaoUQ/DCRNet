@@ -9,10 +9,9 @@ clc
 % 2. params.mat, which contains the dicom parameters that are necessary 
 % for QSM reconstructions, like TEs, Voxel size, z_projs, etc. 
 
-%% addpath 
 addpath ./
 %% get the file-list that you want to perform QSM reconstructions. 
-imds = imageDatastore('./MRI_Reconstruction/**/*_mag.nii', 'FileExtensions', '.nii');
+imds = imageDatastore('./MRI_QSM_recon/**/*_mag.nii', 'FileExtensions', '.nii');
 
 files = imds.Files;  % file list to do QSM; 
 
@@ -30,6 +29,7 @@ full_path = files{num_file};
 dataDir = split(full_path, '_mag.nii'); 
 dataDir = dataDir{1};  %% set prefix for QSM folders
 QSM_folder = [dataDir, '_QSM', ]; 
+
 phpath = [dataDir '_ph.nii'];  %% the corresponding phase images files
 magpath = [dataDir, '_mag.nii'];  %% the magnitude images. 
 
@@ -38,12 +38,11 @@ path_recon = path_recon {1};
 
 path_orig = './';  % path for file 'params.mat'
 
-cd(path_recon);  
+cd(path_recon);  %% enter the QSM reconstruction folder. 
 
 %% load magnitude and phase images. 
 nii = load_nii(phpath);
 ph = single(nii.img);
-
 % because we choose to reconstructed the 3D MRI data using 2D networks
 % along the coronal slices (ky-kz plane), we here convert the phase
 % images into the conventional aligntment to be cosistent with the fully-
@@ -511,8 +510,7 @@ end
 [~,~] = unix('rm *.dat ');
 save('all.mat','-v7.3');
 
-cd ..
-cd(curDir); % back to the original folder
+% cd(curDir); % back to the original folder
 end
 rmpath(genpath('~/QSM'))
 
