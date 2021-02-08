@@ -34,7 +34,7 @@ Fig. 2: The architecture of the proposed DCRNet, which is developed from a deep 
     - NVDIA GPU (CUDA 10.0)  
     - Pytorch 1.8  
     - MATLAB 2017b or later  
-* For QSM PostProcessing
+* For QSM PostProcessing from MRI Phase Data  
     - Hongfu Sun's QSM toolbox (https://github.com/sunhongfu/QSM)
     - FMRIB Software Library v6.0 (https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSL)
 
@@ -45,7 +45,7 @@ Fig. 2: The architecture of the proposed DCRNet, which is developed from a deep 
 ```
     git clone https://github.com/YangGaoUQ/DCRNet.git
 ```
-2. Download Testdata provided by the authors from google drive (to be updated soon), put it in './TestData/'
+2. Download Testdata provided by the authors from google drive, then unzip to get the files.  
 
 2. Run the following scripts (in Folder './Inference/') to test the pre-trained models.
 
