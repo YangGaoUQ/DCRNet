@@ -98,7 +98,7 @@ Fig. 2: The architecture of the proposed DCRNet, which is developed from a deep 
 ```
 2. Go to folder "../PythonCodes/" and run the folling code: 
 ```python 
-    python TrainingDCRNet.py
+    python TrainDCRNet.py
 ```
 
 [⬆ top](#readme)
