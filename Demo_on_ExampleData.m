@@ -27,12 +27,16 @@ disp('Generating Subsampling Mask')
 disp('k-Space Undersampling')
 Amp_Nor_factors = Save_Input_Data_For_DCRNet(k, mask, FileNo, MaskDir);
 
+OpenFolder(MaskDir);
+
 % % save(['Amp_Nor_factors_', num2str(FileNo),'.mat'],'Amp_Nor_factors');
 
 %% Call Python script to conduct the reconstruction; 
 curDir = pwd; 
 
-ConfigPython; 
+if ispc
+    ConfigPython; 
+end
 
 disp('Calling Python for DCRNet-based MRI reconstruction'); 
 
@@ -72,11 +76,32 @@ for m = 1 : ne % from echo 1 to echo ne;
 end
 
 %% save magnitude and phase images;
-nii = make_nii(abs(recs_new), vox);
-save_nii(nii, [PhaseDir, 'rec_Input_',num2str(FileNo),'_mag.nii']);
+% nii = make_nii(abs(recs_new), vox);
+% save_nii(nii, [PhaseDir, 'rec_Input_',num2str(FileNo),'_mag.nii']);
+niftiwrite(abs(recs_new), [PhaseDir, 'rec_Input_',num2str(FileNo),'_mag.nii']);
+% nii = make_nii(angle(recs_new), vox);
+% save_nii(nii, [PhaseDir, 'rec_Input_',num2str(FileNo),'_ph.nii']);
+niftiwrite(angle(recs_new), [PhaseDir, 'rec_Input_',num2str(FileNo),'_ph.nii']);
 
-nii = make_nii(angle(recs_new), vox);
-save_nii(nii, [PhaseDir, 'rec_Input_',num2str(FileNo),'_ph.nii']);
+%% save fully-sampled gruond truth and zero-filling reconstruction for comparison; 
+FS = zeros(ny, nz, nx, ne);
+ZF = zeros(ny, nz, nx, ne);
+
+for m = 1 : ne
+    tmp_full = k(:,:,:,m); 
+    tmp_zf = tmp_full .* mask; 
+    
+    FS(:,:,:,m) = fftn(fftshift(tmp_full));
+    ZF(:,:,:,m) = fftn(fftshift(tmp_zf)); 
+end 
+
+niftiwrite(abs(FS), [PhaseDir, 'rec_Input_',num2str(FileNo),'_FullySampled_mag.nii']);
+niftiwrite(angle(FS), [PhaseDir, 'rec_Input_',num2str(FileNo),'_FullySampled_ph.nii']);
+
+niftiwrite(abs(ZF), [PhaseDir, 'rec_Input_',num2str(FileNo),'_ZeroFilling_mag.nii']);
+niftiwrite(angle(ZF), [PhaseDir, 'rec_Input_',num2str(FileNo),'_ZeroFilling_ph.nii']);
+
+OpenFolder(PhaseDir);
 
 disp('PostProcessing ends, now ready for QSM reconstruction')
 

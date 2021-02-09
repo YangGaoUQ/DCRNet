@@ -4,6 +4,8 @@
 
 - This code was built and tested on Centos 7.8 with Nvdia Tesla V100 and windows 10/ubuntu 19.10 with GTX 1060. 
 
+* It is recommended that this code should be run on a linux desktop; however, On a windows OS, you can still reconstruct magnitude and phase images from the subsampled data, while the QSM reconstruction codes (from phase images) will not work. 
+
 # Content
 - [ Overview](#head1)
 	- [(1) Overall Framework](#head2)
@@ -40,49 +42,63 @@ Fig. 2: The architecture of the proposed DCRNet, which is developed from a deep 
     - Hongfu Sun's QSM toolbox (https://github.com/sunhongfu/QSM)
     - FMRIB Software Library v6.0 (https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSL)
 
-
 ## <span id="head6"> Quick Start (using example data) </span>
-1. Clone this repository and make sure you have installed all prerequisites. 
+1. Clone this repository. 
 
 ```
     git clone https://github.com/YangGaoUQ/DCRNet.git
 ```
-2. Download Exampledata provided by the authors from google drive, then unzip to get the Example Data.  
+2. Install prerequisites (on linux system);
+    1. Installl anaconda (https://docs.anaconda.com/anaconda/install/linux/); 
+    2. open a terminal and create your conda environment to install Pytorch 1.8 and supporting packages (scipy); the following is an example
+        ```
+            conda create --name Pytorch
+            conda activate Pytorch 
+            conda install pytorch cudatoolkit=10.2 -c pytorch-nightly
+            conda install scipy
+        ```
+3. Now you are ready for MRI magnitude and phase reconstructions, however, for QSM reconstruction, do not forget to install Hongfu Sun's QSM toolbox and FMRIB Software Library.   
 
-3. Run the following matlab script (in Folder './MatlabCodes/') to have a quick test on the Example Data.  
+4. Download the Example Data provided by the author (https://drive.google.com/file/d/1QbH_Eemg8YJQ58bnSwI9boMYLXKrSWgM/view?usp=sharing), then unzip and move the file ('kspace_example.mat') into folder './TestData/'. 
 
-```matlab
-    matlab -r "Demo_on_ExampleData.m"
+5. Open a new terminal, and run the following command, then you will find the corresponding MRI and QSM reconstructions in the folder 'MRI_QSM_recon'
+```
+    cd ~/DCRNet
+    matlab -nodisplay -r Demo_on_ExampleData
 ```
 
 ## <span id="head7"> The Whole Reconstruction Pipeline (on your own data) </span>
-1. Preprocess your test data, using 'Prepare_TestData.m' provided in the folder './TestData/'. 
+1. Preprocess your test data, using 'kSpaceSubsampling.m' provided in the folder './MatlabCodes/'. This function takes two variables as its input, i.e., the path to your k-space data file, and a designated file indentifier; 
 ```matlab 
-    matlab -r "Prepare_TestData.m"
+    matlab -nodisplay -r "kSpaceSubSampling(datapath, FileNo)"
 ```
 
-2. Modify the  test code. 
-    1. Open ./Inference/Evaluate_set5.py using your own IDE
-    2. go to line 37, set File_No = numer_of_your_own_images
-    3. go to line 38, change 'set5' to your own directory
+2. Modify the Inference code (in folder './PythonCodes/')
+    1. Open ./PythonCodes/Inference.py using your own IDE
+    2. go to line 14, set File_No as your file identifier
     4. save it as your own inference script file. 
 
-3. Run the modified code
+3. Run the modified code directly using python 
 ```python
     python your_own_inference_script.py  
 ```
-
-## <span id="head8"> Train new DCRNet </span>
-1. prepare your own trianing datasets (We used BSD500 database https://github.com/BIDS/BSDS500 )
-
-2. Preprocessing data sets using the codes in the directory './Preprocessing_for_training' with Matlab
-```matlab 
-    matlab -r "GenerateData_model_64_96_Adam.m"
+    or using the matlab codes provided (in folder './MatlabCodes/CallPthonRecon.m')
+```matlab
+    matlab -nodispaly -r CallPythonRecon
+```
+4. Run the QSM reconstruction in folder './MatlabCodes/':
+```matlab
+    matlab -nodispaly -r QSM_Recon_From_Phase
 ```
 
-3. Enter the tranining folder ('./Training/'), and run the code: 
+## <span id="head8"> Train new DCRNet </span>
+1. Prepare and preocess your data with the code provided in folder 'MatlabCodes':
+```matlab
+    matlab -nodispaly -r PrepareTrainingData
+```
+2. Go to folder "../PythonCodes/" and run the folling code: 
 ```python 
-    python TrainAutoBCS.py 
+    python TrainingDCRNet
 ```
 
 [⬆ top](#readme)
