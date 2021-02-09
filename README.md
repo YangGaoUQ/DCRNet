@@ -64,6 +64,7 @@ Fig. 2: The architecture of the proposed DCRNet, which is developed from a deep 
 5. Open a new terminal, and run the following command, then you will find the corresponding MRI and QSM reconstructions in the folder 'MRI_QSM_recon'
 ```
     cd ~/DCRNet
+    conda activate Pytorch
     matlab -nodisplay -r Demo_on_ExampleData
 ```
 
@@ -74,15 +75,18 @@ Fig. 2: The architecture of the proposed DCRNet, which is developed from a deep 
 ```
 
 2. Modify the Inference code (in folder './PythonCodes/')
-    1. Open ./PythonCodes/Inference.py using your own IDE
-    2. go to line 14, set File_No as your file identifier
+    1. Open './PythonCodes/Inference.py' using your own IDE
+    2. go to line 14, set variable 'File_No' to be your file identifier (e.g., 2, 3, 4 ...)
     4. save it as your own inference script file. 
 
 3. Run the modified code directly using python 
+
 ```python
     python your_own_inference_script.py  
 ```
-    or using the matlab codes provided (in folder './MatlabCodes/CallPthonRecon.m')
+
+or using the matlab codes provided (in folder './MatlabCodes/CallPthonRecon.m')
+
 ```matlab
     matlab -nodispaly -r CallPythonRecon
 ```
@@ -97,6 +101,7 @@ Fig. 2: The architecture of the proposed DCRNet, which is developed from a deep 
     matlab -nodispaly -r PrepareTrainingData
 ```
 2. Go to folder "../PythonCodes/" and run the folling code: 
+
 ```python 
     python TrainDCRNet.py
 ```

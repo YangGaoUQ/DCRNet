@@ -9,10 +9,8 @@ clc
 % for QSM reconstructions, like TEs, Voxel size, z_projs, etc. 
 
 %% THIS SCRIPT ONLY WORKS ON LINUX/MAC OS!
-msg = msgbox('THIS SCRIPT ONLY WORKS ON LINUX/MAC OS!', 'warning', 'warn');
-waitfor(msg)
-
 if ispc
+    msgbox('THIS SCRIPT ONLY WORKS ON LINUX/MAC OS!', 'warning', 'warn');
     error('THIS SCRIPT ONLY WORKS ON LINUX/MAC OS!');
 end 
 
