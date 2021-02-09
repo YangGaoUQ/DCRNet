@@ -1,6 +1,5 @@
 clear 
 clc
-
 %% QSM reconstruction script. 
 % necessary files: 
 % 1. magnitude and phase reconstructions, stored in the format of
@@ -9,15 +8,27 @@ clc
 % 2. params.mat, which contains the dicom parameters that are necessary 
 % for QSM reconstructions, like TEs, Voxel size, z_projs, etc. 
 
+%% THIS SCRIPT ONLY WORKS ON LINUX/MAC OS!
+msg = msgbox('THIS SCRIPT ONLY WORKS ON LINUX/MAC OS!', 'warning', 'warn');
+waitfor(msg)
+
+if ispc
+    error('THIS SCRIPT ONLY WORKS ON LINUX/MAC OS!');
+end 
+
 addpath ./
 %% get the file-list that you want to perform QSM reconstructions. 
-imds = imageDatastore('./MRI_QSM_recon/**/*_mag.nii', 'FileExtensions', '.nii');
+imds = imageDatastore('../MRI_QSM_recon/**/*_mag.nii', 'FileExtensions', '.nii');
 
 files = imds.Files;  % file list to do QSM; 
 
 curDir = pwd; % get current path; 
 
 %% addpath for Hongfu Sun's QSM toolbox
+if ~exist('~/QSM', 'dir')
+    error('Need Hongfu Sun''s QSM tool box! (https://github.com/sunhongfu/QSM)');
+end
+
 addpath(genpath('~/QSM'))  
 
 %% Recon the QSMs from the phase images

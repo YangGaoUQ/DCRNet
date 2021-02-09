@@ -9,19 +9,19 @@
 	- [(1) Overall Framework](#head2)
 	- [(2) Data Flow in Networks](#head3)
 - [ Manual](#head4)
-	- [ Requirements](#head5)
-	- [Quick Test (inference on Set 5)](#head6)
-	- [The whole test pipeline (on your own data)](#head7)
-	- [Train new AutoBCS Net](#head8)
+	- [Requirements](#head5)
+	- [Quick Start (using example data)](#head6)
+	- [The Whole Reconstruction Pipeline (on your own data)](#head7)
+	- [Train new DCRNet](#head8)
 
-# <span id="head1"> Overview</span>
+# <span id="head1"> Overview </span>
 
-## <span id="head2">(1) Overall Framework</span>
+## <span id="head2">(1) Overall Framework </span>
 
 ![Whole Framework](https://github.com/YangGaoUQ/DCRNet/blob/main/img/Figs_1.png)
 Fig. 1: Overview of the proposed QSM accelerating scheme.  
 
-## <span id="head3">(2) Data Flow in Networks</span>
+## <span id="head3">(2) Data Flow in Networks </span>
 
 ![Data Flow](https://github.com/YangGaoUQ/DCRNet/blob/main/img/Figs_2.png)
 Fig. 2: The architecture of the proposed DCRNet, which is developed from a deep residual network backbone using complex convolutional operations.
@@ -40,20 +40,20 @@ Fig. 2: The architecture of the proposed DCRNet, which is developed from a deep 
     - FMRIB Software Library v6.0 (https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSL)
 
 
-## <span id="head6"> Quick Start </span>
+## <span id="head6"> Quick Start (using example data) </span>
 1. Clone this repository
 
 ```
     git clone https://github.com/YangGaoUQ/DCRNet.git
 ```
-2. Download Testdata provided by the authors from google drive, then unzip to get the files.  
+2. Download Exampledata provided by the authors from google drive, then unzip to get the files.  
 
 3. Run the following scripts (in Folder './Inference/') to test the pre-trained models.
 
 ```python
     python Evaluate_set5.py
 ```
-## <span id="head7"> The whole test pipeline (on your own data)</span>
+## <span id="head7"> The Whole Reconstruction Pipeline (on your own data) </span>
 1. Preprocess your test data, using 'Prepare_TestData.m' provided in the folder './TestData/'. 
 ```matlab 
     matlab -r "Prepare_TestData.m"
@@ -70,7 +70,7 @@ Fig. 2: The architecture of the proposed DCRNet, which is developed from a deep 
     python your_own_inference_script.py  
 ```
 
-## <span id="head8"> Train new DCRNet</span>
+## <span id="head8"> Train new DCRNet </span>
 1. prepare your own trianing datasets (We used BSD500 database https://github.com/BIDS/BSDS500 )
 
 2. Preprocessing data sets using the codes in the directory './Preprocessing_for_training' with Matlab
