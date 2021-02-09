@@ -1,6 +1,5 @@
 %% configure the matlab and python linkage; 
-pyExec = 'D:\Users\92381\Anaconda3\envs\Pytorch\'; % conda environment path (windows), replace it with yours; 
-%%pyExec = '/home/uqygao10/anaconda3/envs/Pytorch/bin/'; %conda environment path (linux), replace it with yours; 
+pyExec = 'D:\Users\92381\Anaconda3\envs\Pytorch\'; % conda environment path (windows), replace it with yours;  
 pyRoot = fileparts(pyExec);
 p = getenv('PATH');
 p = strsplit(p, ';');
