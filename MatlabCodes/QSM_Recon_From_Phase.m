@@ -44,7 +44,7 @@ QSM_folder = [dataDir, '_QSM', ];
 phpath = [dataDir '_ph.nii'];  %% the corresponding phase images files
 magpath = [dataDir, '_mag.nii'];  %% the magnitude images. 
 
-path_recon = split(full_path, '/rec'); %% mag directory
+path_recon = split(full_path, 'rec_'); %% mag directory
 path_recon = path_recon {1};  
 
 path_orig = './';  % path for file 'params.mat'

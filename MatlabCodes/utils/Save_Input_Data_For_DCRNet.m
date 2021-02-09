@@ -32,7 +32,7 @@ if ~ exist('Dir','var') || isempty(Dir)
     Dir = '../TestData/'; 
 end
 
-k = permute(k, [1, 3, 2, 4]); % prepare to conduct subsampling in the ky-kz (coronal) plane
+%%%k = permute(k, [1, 3, 2, 4]); % prepare to conduct subsampling in the ky-kz (coronal) plane
 
 ll = size(k);
 

@@ -54,7 +54,7 @@ for x = 1: nx
 end
 
 %% show sampling mask;
-figure; imagesc(mask); colormap gray; 
+figure; imagesc(mask); colormap gray; title('Subsampling Mask'); axis off; drawnow
 
 %% save mask in the designated folder
 save(sprintf('%sReal_Mask_Acc%d_%d_by_%d', Dir, AF, MatrixSize(1), MatrixSize(2)), 'mask'); 

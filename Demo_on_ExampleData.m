@@ -4,6 +4,8 @@ clc
 close all
 
 %% set parameters for saving the inputs data and subsampling mask;
+cd ./MatlabCodes/
+
 MaskDir = '../TestData/';
 FileNo = 1;
 addpath ./utils;
@@ -28,12 +30,11 @@ Amp_Nor_factors = Save_Input_Data_For_DCRNet(k, mask, FileNo, MaskDir);
 % % save(['Amp_Nor_factors_', num2str(FileNo),'.mat'],'Amp_Nor_factors');
 
 %% Call Python script to conduct the reconstruction; 
-msg = msgbox('MRI Reconstruction using DCRNet with Pytorch 1.8', 'Subsampling Completed', 'help');
-waitfor(msg)
-
 curDir = pwd; 
 
 ConfigPython; 
+
+disp('Calling Python for DCRNet-based MRI reconstruction'); 
 
 cd ../PythonCodes/
 !python -u ../PythonCodes/Inference.py
@@ -64,6 +65,7 @@ recs_new = zeros(size(recs));
 
 [ny, nz, nx, ne] = size(recs); % image size;
 
+disp('PostProcessing Starts')
 for m = 1 : ne % from echo 1 to echo ne;
     rec_tmp = recs(:,:,:,m);  % reconstruction by DCRNet;
     recs_new(:,:,:,m) = Amp_Nor_factors(m) * rec_tmp * 30; % inverse the amplitude normlization;
@@ -76,6 +78,9 @@ save_nii(nii, [PhaseDir, 'rec_Input_',num2str(FileNo),'_mag.nii']);
 nii = make_nii(angle(recs_new), vox);
 save_nii(nii, [PhaseDir, 'rec_Input_',num2str(FileNo),'_ph.nii']);
 
+disp('PostProcessing ends, now ready for QSM reconstruction')
+
+QSM_Recon_From_Phase; 
 
 
 
