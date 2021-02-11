@@ -32,23 +32,12 @@ OpenFolder(MaskDir);
 % % save(['Amp_Nor_factors_', num2str(FileNo),'.mat'],'Amp_Nor_factors');
 
 %% Call Python script to conduct the reconstruction; 
-curDir = pwd; 
-
-if ispc
-    ConfigPython; 
-end
-
-disp('Calling Python for DCRNet-based MRI reconstruction'); 
-
-cd ../PythonCodes/
-!python -u ../PythonCodes/Inference.py
-cd(curDir)
+PythonRecon('../PythonCodes/Inference.py')
 
 %% After Python Reconstruction:
 % PostProcessing: save MRI magnitude and phase images;
 % addpath ./utils
 SourceDir = '../TestData/'; %% make it the same as the MaskDir;
-% FileNo = 1;  %% file indentifier, the same as the one used in 'kSpace_Subsampling.m'
 PhaseDir = '../MRI_QSM_recon/ExampleData/';  % you can modify it to be your own directory;
 vox = [1 1 1]; % voxel size;
 

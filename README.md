@@ -85,7 +85,7 @@ Fig. 2: The architecture of the proposed DCRNet, which is developed from a deep 
     python your_own_inference_script.py  
 ```
 
-or using the matlab codes provided in folder './MatlabCodes/PthonRecon.m'
+or using the matlab codes provided in folder './MatlabCodes/'
 
 ```matlab
     matlab -nodispaly -r "PythonRecon('../PythonCodes/your_own_inference_script.py')"
@@ -102,7 +102,7 @@ or using the matlab codes provided in folder './MatlabCodes/PthonRecon.m'
 ```
 
 ## <span id="head8"> Train new DCRNet </span>
-1. Prepare and preocess your data with the code provided in folder 'MatlabCodes':
+1. Prepare and preprocess your data with the code provided in folder 'MatlabCodes':
 ```matlab
     matlab -nodispaly -r PrepareTrainingData
 ```

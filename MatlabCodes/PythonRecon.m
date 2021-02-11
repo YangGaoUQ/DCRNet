@@ -21,8 +21,7 @@ cd(codeFolder);
 CodeFile = [codeName codeExt]; 
 exe_command = ['python -u ', CodeFile];
 
-system(exe_command);
-%% !python -u ../PythonCodes/Inference.py
+system(exe_command); % !python -u Inference.py
 cd(curDir)
 
 disp('DCRNet-based Reconstruction Finished');
