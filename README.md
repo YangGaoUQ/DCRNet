@@ -69,7 +69,7 @@ Fig. 2: The architecture of the proposed DCRNet, which is developed from a deep 
 ```
 
 ## <span id="head7"> The Whole Reconstruction Pipeline (on your own data) </span>
-1. Preprocess your test data, using 'kSpaceSubsampling.m' provided in the folder './MatlabCodes/'. This function takes two variables as its input, i.e., the path to your k-space data file, and a designated file indentifier; 
+1. Preprocess your test data, using 'kSpaceSubsampling.m' provided in the folder './MatlabCodes/'. This function takes two variables as its input, i.e., the path to your k-space data file, and a designated file indentifier 'FileNo'; 
 ```matlab 
     matlab -nodisplay -r "kSpaceSubSampling(datapath, FileNo)"
 ```
@@ -85,12 +85,18 @@ Fig. 2: The architecture of the proposed DCRNet, which is developed from a deep 
     python your_own_inference_script.py  
 ```
 
-or using the matlab codes provided (in folder './MatlabCodes/CallPthonRecon.m')
+or using the matlab codes provided in folder './MatlabCodes/PthonRecon.m'
 
 ```matlab
-    matlab -nodispaly -r CallPythonRecon
+    matlab -nodispaly -r "PythonRecon('../PythonCodes/your_own_inference_script.py')"
 ```
-4. Run the QSM reconstruction in folder './MatlabCodes/':
+
+4. Run the postprocessing codes to obtain MRI magnitude and phase images from the network outputs; 
+```matlab
+    matlab -nodisplay -r "MRI_PhaseRecon(FileNo)"
+``` 
+
+5. Run the QSM reconstruction in folder './MatlabCodes/':
 ```matlab
     matlab -nodispaly -r QSM_Recon_From_Phase
 ```
