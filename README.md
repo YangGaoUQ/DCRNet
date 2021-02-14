@@ -1,6 +1,6 @@
 # DCRNet: Accelerating Quantitative Susceptibility Mapping using Compressed Sensing and Deep Neural Network
 
-* This reposiotry is for a deep complex residual network (DCRNet) to recover both MR magnitude and quantitative phase images from the CS undersample k-space data, enabling the acceleration of QSM acquisitions, which is introduced in the following paper: xxxx.  
+* This repository is for a deep complex residual network (DCRNet) to recover both MR magnitude and quantitative phase images from the CS undersample k-space data, enabling the acceleration of QSM acquisitions, which is introduced in the following paper: xxxx.  
 
 - This code was built and tested on Centos 7.8 with Nvdia Tesla V100 and windows 10/ubuntu 19.10 with GTX 1060. 
 
@@ -106,7 +106,7 @@ or using the matlab codes provided in folder './MatlabCodes/'
 ```matlab
     matlab -nodispaly -r PrepareTrainingData
 ```
-2. Go to folder "../PythonCodes/" and run the folling code: 
+2. Go to folder "../PythonCodes/" and run the folling code (this is a script for quick training, complicated full-version training scripts will be updated soon): 
 
 ```python 
     python TrainDCRNet.py
