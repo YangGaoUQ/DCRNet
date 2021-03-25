@@ -103,7 +103,7 @@ if __name__ == '__main__':
 
                     ################ Network Inference ##################
 
-                    pred_r, pred_i = dcrnet(INPUT_r, INPUT_i, INPUT_k_r, INPUT_k_i, mask)
+                    _, _, pred_r, pred_i = dcrnet(INPUT_r, INPUT_i, INPUT_k_r, INPUT_k_i, mask)
 
                     pred_r = torch.squeeze(pred_r, 0)  ## 1 * 256 * 256
                     pred_i = torch.squeeze(pred_i, 0)  ## 1 * 256 * 256

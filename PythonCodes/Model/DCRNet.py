@@ -127,6 +127,6 @@ if __name__ == '__main__':
     x_i = torch.randn(2,1,48,48, dtype=torch.float)
     print('input' + str(x_r.size()))
     print(x_r.dtype)
-    y_r, y_i = dcrnet(x_r, x_i, x_r, x_i, x_r)
+    ini_r, ini_i, y_r, y_i = dcrnet(x_r, x_i, x_r, x_i, x_r)
     print(torch.max(y_r - y_i))
     print('output'+str(y_r.size()))

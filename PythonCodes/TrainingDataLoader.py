@@ -68,7 +68,7 @@ class DataSet(data.Dataset):
         tmp = torch.rand(1)
         if tmp > self.Prob:
             #print('noise')
-            tmp_idx = torch.randint(4, (1,1))
+            tmp_idx = torch.randint(3, (1,1))
             tmp_SNR = self.SNRs[tmp_idx]
             label_noise_r = AddNoise(label_r, tmp_SNR)
             label_noise_i = AddNoise(label_i, tmp_SNR)
