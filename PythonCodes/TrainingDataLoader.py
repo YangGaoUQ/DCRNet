@@ -13,6 +13,9 @@ class DataSet(data.Dataset):
         self.list_path = list_path
         self.Mask = mask  ## subsampling mask; file 'Real_Mask_Acc4_forTraining.mat' in current folder
         self.img_ids = []
+
+        self.Prob = torch.tensor(0.8)   ## 20% (1 - 0.8) probability to add noise; 
+        self.SNRs = torch.tensor([60, 40, 20])  # Noise SNRs. 
         ## get the number of files. 
         # self.img_ids = [i_id.strip() for i_id in open(list_path)]
         self.img_ids = [i_id.strip() for i_id in open(list_path)]
@@ -47,25 +50,45 @@ class DataSet(data.Dataset):
 
         label = np.array(label)
 
-        image = np.multiply(label, self.Mask)
-
-        k0 = image / 30
-
-        # convert to images
-        image = np.fft.fftshift(image)
-        image = np.fft.fft2(image)
-        ###mag = np.absolute(image)
-        image = image / 30  # normalization. 
-
         label = np.fft.fftshift(label)
         label = np.fft.fft2(label)
         ###mag = np.absolute(label)
         label = label / 30  # normalization
 
-        image_r = np.real(image)
-        image_i = np.imag(image)
         label_r = np.real(label)
         label_i = np.imag(label)
+
+        label_r = torch.from_numpy(label_r)
+        label_i = torch.from_numpy(label_i)
+
+        label_noise_r = label_r
+        label_noise_i = label_i
+
+        ### add noise into the input images; 
+        tmp = torch.rand(1)
+        if tmp > self.Prob:
+            #print('noise')
+            tmp_idx = torch.randint(4, (1,1))
+            tmp_SNR = self.SNRs[tmp_idx]
+            label_noise_r = AddNoise(label_r, tmp_SNR)
+            label_noise_i = AddNoise(label_i, tmp_SNR)
+
+        label_noise = label_noise_r + 1j * label_noise_i
+        label_noise = label_noise.numpy()
+
+        label_noise = np.fft.ifft2(label_noise)
+        label_noise = np.fft.ifftshift(label_noise)
+
+        image = np.multiply(label_noise, self.Mask)
+
+        k0 = image
+
+        # convert to images
+        image = np.fft.fftshift(image)
+        image = np.fft.fft2(image)
+
+        image_r = np.real(image)
+        image_i = np.imag(image)
 
         k0_i = np.imag(k0)
         k0_r = np.real(k0)
@@ -73,9 +96,7 @@ class DataSet(data.Dataset):
         mask = np.real(self.Mask)
         ## convert the image data to torch.tesors and return. 
         image_r = torch.from_numpy(image_r) 
-        label_r = torch.from_numpy(label_r)
         image_i = torch.from_numpy(image_i) 
-        label_i = torch.from_numpy(label_i)
 
         k0_r = torch.from_numpy(k0_r)
         k0_i = torch.from_numpy(k0_i)
@@ -101,6 +122,17 @@ class DataSet(data.Dataset):
         
         return image_r, image_i, label_r, label_i, k0_r, k0_i, mask, name
  
+def AddNoise(ins, SNR):
+    sigPower = SigPower(ins)
+    noisePower = sigPower / SNR
+    noise = torch.sqrt(noisePower) * torch.randn(ins.size())
+    return ins + noise
+
+def SigPower(ins):
+    ll = torch.numel(ins)
+    tmp1 = torch.sum(ins ** 2)
+    return torch.div(tmp1, ll)
+
 ## before formal usage, test the validation of data loader. 
 if __name__ == '__main__':
     DATA_DIRECTORY = '..'

@@ -29,8 +29,9 @@ def data_consistency(self, k, k0, mask, noise_lvl=None):
     return out    
 
 class DataConsistencyInKspace(nn.Module):
-    def __init__(self, norm=None):
+    def __init__(self, noise_lvl=None, norm=None):
         super(DataConsistencyInKspace, self).__init__()
+        self.normalized = norm == 'ortho'   
         self.noise_lvl = noise_lvl
 
     def forward(self, x_r, x_i, k0_r, k0_i, mask):

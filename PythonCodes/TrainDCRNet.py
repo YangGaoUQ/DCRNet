@@ -12,7 +12,7 @@ from DCRNet import *
  
 #########  Section 1: DataSet Load #############
 def DataLoad(Batch_size):
-    DATA_DIRECTORY = '../k_full_2d_data_for_Training'
+    DATA_DIRECTORY = '../'
     DATA_LIST_PATH = './test_IDs.txt'
     ## get mask;
     matImage = scio.loadmat('Real_Mask_Acc4_forTraining.mat')
@@ -98,7 +98,7 @@ def TrainNet(dcrnet, LR = 0.001, Batchsize = 32, Epoches = 100 , useGPU = True):
                         acc_loss1 = loss.item()   
                         acc_loss2 = loss5.item()
                         time_end=time.time()
-                        print('Outside: Epoch : %d, batch: %d, Loss_ini： %fs, Loss1: %f \n lr2: %f, used time: %d s' %
+                        print('Outside: Epoch : %d, batch: %d, Loss_ini: %f, Loss_final: %f \n lr2: %f, used time: %d s' %
                             (epoch, i + 1, acc_loss2, acc_loss1, optimizer2.param_groups[0]['lr'], time_end - time_start))   
                 scheduler2.step()
         else:
