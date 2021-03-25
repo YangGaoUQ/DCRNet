@@ -34,10 +34,13 @@ class DCRNet(nn.Module):
         x_r, x_i = self.FinalConv(x_r, x_i)
         x_r = x_r + INPUT_r  ## 
         x_i = x_i + INPUT_i ## 
+
+        ini_r = x_r
+        ini_i = x_i
         
         x_r, x_i = self.dc(x_r, x_i, k0_r, k0_i, mask)
 
-        return x_r, x_i
+        return ini_r, ini_i, x_r, x_i
 
 
 

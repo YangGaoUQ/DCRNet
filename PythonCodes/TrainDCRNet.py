@@ -10,7 +10,6 @@ import sys
 sys.path.append('./Model/')
 from DCRNet import * 
  
-
 #########  Section 1: DataSet Load #############
 def DataLoad(Batch_size):
     DATA_DIRECTORY = '../k_full_2d_data_for_Training'
@@ -76,12 +75,18 @@ def TrainNet(dcrnet, LR = 0.001, Batchsize = 32, Epoches = 100 , useGPU = True):
                     ## zero the gradient buffers 
                     optimizer2.zero_grad()
                     ## forward: 
-                    pred_r, pred_i = dcrnet(image_r, image_i, k0_r, k0_i, mask)
+                    ini_r, ini_i, pred_r, pred_i = dcrnet(image_r, image_i, k0_r, k0_i, mask)
 
                     loss1 = criterion(pred_r, label_r)
                     loss2 = criterion(pred_i, label_i)
-                    loss = loss1 + loss2 
 
+                    loss3 = criterion(ini_r, label_r)
+                    loss4 = criterion(ini_i, label_i)
+
+                    loss = loss1 + loss2 
+                    loss5 = loss3 + loss4
+
+                    loss5.backward(retain_graph = True)
                     loss.backward()
                     ##
                     optimizer2.step()
@@ -91,9 +96,10 @@ def TrainNet(dcrnet, LR = 0.001, Batchsize = 32, Epoches = 100 , useGPU = True):
                     ## print every 20 mini-batch size
                     if i % 20 == 0:
                         acc_loss1 = loss.item()   
+                        acc_loss2 = loss5.item()
                         time_end=time.time()
-                        print('Outside: Epoch : %d, batch: %d, Loss1: %f \n lr2: %f, used time: %d s' %
-                            (epoch, i + 1, acc_loss1, optimizer2.param_groups[0]['lr'], time_end - time_start))   
+                        print('Outside: Epoch : %d, batch: %d, Loss_ini： %fs, Loss1: %f \n lr2: %f, used time: %d s' %
+                            (epoch, i + 1, acc_loss2, acc_loss1, optimizer2.param_groups[0]['lr'], time_end - time_start))   
                 scheduler2.step()
         else:
             pass
