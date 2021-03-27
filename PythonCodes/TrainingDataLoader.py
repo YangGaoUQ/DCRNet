@@ -14,8 +14,8 @@ class DataSet(data.Dataset):
         self.Mask = mask  ## subsampling mask; file 'Real_Mask_Acc4_forTraining.mat' in current folder
         self.img_ids = []
 
-        self.Prob = torch.tensor(0.8)   ## 20% (1 - 0.8) probability to add noise; 
-        self.SNRs = torch.tensor([60, 40, 20])  # Noise SNRs. 
+        self.Prob = torch.tensor(0.95)   ## Addding Noise to the training datasets by modifying this number; probability to add noise: (1 - self.Prob)
+        self.SNRs = torch.tensor([60, 40, 20])  # Noise SNRs, can be extended to more levels, based on your own data and system. 
         ## get the number of files. 
         # self.img_ids = [i_id.strip() for i_id in open(list_path)]
         self.img_ids = [i_id.strip() for i_id in open(list_path)]
