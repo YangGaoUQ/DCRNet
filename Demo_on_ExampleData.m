@@ -48,13 +48,22 @@ recon_i_path = [SourceDir,'rec_Input_',num2str(FileNo), '_imag.mat'];
 load(recon_r_path);
 load(recon_i_path);
 
+ini_recon_r_path = [SourceDir,'ini_rec_Input_',num2str(FileNo), '_real.mat'];
+ini_recon_i_path = [SourceDir,'ini_rec_Input_',num2str(FileNo), '_imag.mat'];
+
+load(ini_recon_r_path);
+load(ini_recon_i_path);
+
 %% load amplitude normlaization factors;
 % load(['Amp_Nor_factors_', num2str(FileNo),'.mat']);
 
 %% postprocessing starts;
 recs = recons_r + 1j * recons_i;
 
+recs_nodc = ini_recons_r + 1j * ini_recons_i; 
+
 recs_new = zeros(size(recs));
+recs_nodc_new = zeros(size(recs));
 
 [ny, nz, nx, ne] = size(recs); % image size;
 
@@ -62,15 +71,21 @@ disp('PostProcessing Starts')
 for m = 1 : ne % from echo 1 to echo ne;
     rec_tmp = recs(:,:,:,m);  % reconstruction by DCRNet;
     recs_new(:,:,:,m) = Amp_Nor_factors(m) * rec_tmp * 30; % inverse the amplitude normlization;
+    
+    rec_tmp = recs_nodc(:,:,:,m);  % reconstruction by DCRNet;
+    recs_nodc_new(:,:,:,m) = Amp_Nor_factors(m) * rec_tmp * 30; % inverse the amplitude normlization;
 end
 
 %% save magnitude and phase images;
 % nii = make_nii(abs(recs_new), vox);
 % save_nii(nii, [PhaseDir, 'rec_Input_',num2str(FileNo),'_mag.nii']);
-niftiwrite(abs(recs_new), [PhaseDir, 'rec_Input_',num2str(FileNo),'_mag.nii']);
+niftiwrite(abs(recs_new), [PhaseDir, 'rec_Input_',num2str(FileNo),'_DCRNet_mag.nii']);
 % nii = make_nii(angle(recs_new), vox);
 % save_nii(nii, [PhaseDir, 'rec_Input_',num2str(FileNo),'_ph.nii']);
-niftiwrite(angle(recs_new), [PhaseDir, 'rec_Input_',num2str(FileNo),'_ph.nii']);
+niftiwrite(angle(recs_new), [PhaseDir, 'rec_Input_',num2str(FileNo),'_DCRNet_ph.nii']);
+
+niftiwrite(abs(recs_new), [PhaseDir, 'rec_Input_',num2str(FileNo),'_DCRNet_withoutDC_mag.nii']);
+niftiwrite(angle(recs_new), [PhaseDir, 'rec_Input_',num2str(FileNo),'_DCRNet_withoutDC_ph.nii']);
 
 %% save fully-sampled gruond truth and zero-filling reconstruction for comparison; 
 FS = zeros(ny, nz, nx, ne);

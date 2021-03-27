@@ -69,6 +69,9 @@ if __name__ == '__main__':
             recons_r = torch.zeros(image_r.size())
             recons_i = torch.zeros(image_i.size())
 
+            ini_recons_r = torch.zeros(image_r.size())
+            ini_recons_i = torch.zeros(image_i.size())
+
             print('reconing ...')
             
             time_start=time.time()
@@ -103,13 +106,22 @@ if __name__ == '__main__':
 
                     ################ Network Inference ##################
 
-                    _, _, pred_r, pred_i = dcrnet(INPUT_r, INPUT_i, INPUT_k_r, INPUT_k_i, mask)
+                    ini_r, ini_i, pred_r, pred_i = dcrnet(INPUT_r, INPUT_i, INPUT_k_r, INPUT_k_i, mask)
 
                     pred_r = torch.squeeze(pred_r, 0)  ## 1 * 256 * 256
                     pred_i = torch.squeeze(pred_i, 0)  ## 1 * 256 * 256
 
                     pred_r = torch.squeeze(pred_r, 0)  ##  256 * 256
                     pred_i = torch.squeeze(pred_i, 0)  ##  256 * 256
+                    
+                    ini_r = torch.squeeze(ini_r, 0)  ## 1 * 256 * 256
+                    ini_i = torch.squeeze(ini_i, 0)  ## 1 * 256 * 256
+
+                    ini_r = torch.squeeze(ini_r, 0)  ##  256 * 256
+                    ini_i = torch.squeeze(ini_i, 0)  ##  256 * 256
+
+                    ini_recons_r[:,:,j,i] = ini_r
+                    ini_recons_i[:,:,j,i] = ini_i
                     
                     recons_r[:,:,j,i] = pred_r
                     recons_i[:,:,j,i] = pred_i
@@ -122,10 +134,21 @@ if __name__ == '__main__':
             recons_i = recons_i.to('cpu')
             recons_i = recons_i.numpy()
 
+            ini_recons_r = ini_recons_r.to('cpu')
+            ini_recons_r = ini_recons_r.numpy()
+            ini_recons_i = ini_recons_i.to('cpu')
+            ini_recons_i = ini_recons_i.numpy()
+
             print('Saving results')
             path = SourceDir + 'rec_Input_' + str(FileNo) + '_real.mat'
             scio.savemat(path, {'recons_r':recons_r})
 
             path = SourceDir + 'rec_Input_' + str(FileNo) + '_imag.mat'
             scio.savemat(path, {'recons_i':recons_i})
+
+            path = SourceDir + 'ini_rec_Input_' + str(FileNo) + '_real.mat'
+            scio.savemat(path, {'ini_recons_r':ini_recons_r})
+
+            path = SourceDir + 'ini_rec_Input_' + str(FileNo) + '_imag.mat'
+            scio.savemat(path, {'ini_recons_i':ini_recons_i})
             print('Reconstruction Ends, Going to MatlabCode Folder for postprocessing')
