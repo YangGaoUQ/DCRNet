@@ -84,8 +84,8 @@ niftiwrite(abs(recs_new), [PhaseDir, 'rec_Input_',num2str(FileNo),'_DCRNet_mag.n
 % save_nii(nii, [PhaseDir, 'rec_Input_',num2str(FileNo),'_ph.nii']);
 niftiwrite(angle(recs_new), [PhaseDir, 'rec_Input_',num2str(FileNo),'_DCRNet_ph.nii']);
 
-niftiwrite(abs(recs_new), [PhaseDir, 'rec_Input_',num2str(FileNo),'_DCRNet_withoutDC_mag.nii']);
-niftiwrite(angle(recs_new), [PhaseDir, 'rec_Input_',num2str(FileNo),'_DCRNet_withoutDC_ph.nii']);
+niftiwrite(abs(recs_nodc_new), [PhaseDir, 'rec_Input_',num2str(FileNo),'_DCRNet_withoutDC_mag.nii']);
+niftiwrite(angle(recs_nodc_new), [PhaseDir, 'rec_Input_',num2str(FileNo),'_DCRNet_withoutDC_ph.nii']);
 
 %% save fully-sampled gruond truth and zero-filling reconstruction for comparison; 
 FS = zeros(ny, nz, nx, ne);
